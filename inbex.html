@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- {/* logo  */} -->
+    <link
+      rel="shortcut icon"
+      href="https://www.youtube.com/s/desktop/80338919/img/favicon_32x32.png"
+      type="image/x-icon"
+    />
+    <!-- {/* link css */} -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- {/* font google */} -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Rubik:wght@500;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- {/* icon google */} -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+      rel="stylesheet"
+    />
+    <title>واعي</title>
+  </head>
+  <body>
+    <header>
+      <div class="left-section">
+        <i class="material-icons">menu</i>
+        <img src="images/youtube-logo.png" alt="" />
+      </div>
+      <div class="mid-section">
+        <form>
+          <input type="text" placeholder="البحث" />
+          <button>
+            <i class="material-icons">search</i>
+          </button>
+        </form>
+        <span class="material-icons mice"> mic </span>
+      </div>
+      <div class="right-section">
+        <i class="material-icons">video_call</i>
+        <i class="material-icons">notifications</i>
+        <i class="material-icons">account_circle</i>
+      </div>
+    </header>
+    <div class="content-area">
+      <aside>
+        <nav>
+          <a href="#" class="nav-link active">
+            <i class="material-icons">home</i>
+            <span id="active-span">Home</span>
+          </a>
+          <a href="#" class="nav-link">
+            <i class="material-icons-outlined">explore</i>
+            <span id="active-span">explore</span>
+          </a>
+          <a href="#" class="nav-link">
+            <i class="material-icons-outlined">subscriptions</i>
+            <span id="active-span">subscriptions</span>
+          </a>
+          <a href="#" class="nav-link">
+            <i class="material-icons">ondemand_video</i>
+            <span id="active-span">Originals</span>
+          </a>
+          <a href="#" class="nav-link">
+            <i class="material-icons">play_circle_outline</i>
+            <span id="active-span">Youtube Music</span>
+          </a>
+          <hr />
+        </nav>
+      </aside>
+      <main>
+        <div class="videos_container">
+          <div class="video">
+            <div class="tumbnail">
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube-nocookie.com/embed/cHjQj01bYT8?si=hKC7iO9mtpZXViu8"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+              <div class="video-detalis">
+                <div class="creater-img">
+                  <img src="images/profile-pic.png" alt="" />
+                </div>
+                <div class="title">
+                  <a class="video-title" href="#"> </a>
+                  <a href="#" class="video-creater"> Islam </a>
+                  <span> 10M مشاهدة <span>قبل 51 دقيقة</span> </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+  function getVideo(){ 
+    let container = document.querySelector(".videos_container")
+    container.innerHTML = ""
+         axios.get("https://api-youtube-zou4.onrender.com/videos").then(res => {
+        console.log(res.data);
+        for (i=0 ; i < res.data.length; i++){
+          container.innerHTML += `
+        <div class="video">
+            <div class="tumbnail">
+                ${res.data[i].videoUrl}
+              <div class="video-detalis">
+                <div class="creater-img">
+                  <img src="images/profile-pic.png" alt="" />
+                </div>
+                <div class="title">
+                  <a class="video-title" href="#"> ${res.data[i].titleVideo}</a>
+                  <a href="#" class="video-creater"> Islam </a>
+                  <span> 10M مشاهدة <span>قبل 51 دقيقة</span> </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+        }
+      })}
+
+      getVideo();
+    </script>
+  </body>
+</html>
