@@ -84,10 +84,11 @@
             <img src="images/youtube-logo.png" alt="" />
 
             <input type="text" placeholder="عنوان الفيديو" id="title-video" />
-            <button id="uplaodviedo">تحميل الفيديو</button>
+            <input type="text" placeholder="رابط الفيديو" id="urlVideo">
             <!-- <button id="uplaodimgvideo">تحميل صورة الفيديو</button> -->
 
             <button id="submit">إرسال</button>
+
           </div>
         </nav>
       </aside>
@@ -105,57 +106,16 @@
     <!-- local upload instantiation -->
     <script src="upload_widget.js" type="text/javascript"></script>
     <script>
-      let url = "";
-      const cloudName = "donoketph"; // replace with your own cloud name
-      const uploadPreset = "uckibu8g"; // replace with your own upload preset
-
-      // Remove the comments from the code below to add
-      // additional functionality.
-      // Note that these are only a few examples, to see
-      // the full list of possible parameters that you
-      // can add see:
-      //   https://cloudinary.com/documentation/upload_widget_reference
-
-      const myWidget = cloudinary.createUploadWidget(
-        {
-          cloudName: cloudName,
-          uploadPreset: uploadPreset,
-          // cropping: true, //add a cropping step
-          // showAdvancedOptions: true,  //add advanced options (public_id and tag)
-          // sources: [ "local", "url"], // restrict the upload sources to URL and local files
-          // multiple: false,  //restrict upload to a single file
-          // folder: "user_images", //upload files to the specified folder
-          // tags: ["users", "profile"], //add the given tags to the uploaded files
-          // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
-          // clientAllowedFormats: ["images"], //restrict uploading to image files only
-          // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
-          // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
-          // theme: "purple", //change to a purple theme
-        },
-        (error, result) => {
-          if (!error && result && result.event === "success") {
-            console.log("type", result.info.resource_type);
-            console.log("url", result.info.url);
-            url = result.info.url;
-          }
-        }
-      );
-
-      document.getElementById("uplaodviedo").addEventListener(
-        "click",
-        function () {
-          myWidget.open();
-        },
-        false
-      );
+      let url = document.getElementById("urlVideo");
+      let title = document.getElementById("title-video")
 
       document.getElementById("submit").addEventListener("click", () => {
-        console.log(url, document.getElementById("title-video").value);
+        console.log(url.value, title.value);
         // axios
         axios
           .post("https://api-youtube-zou4.onrender.com/upload", {
-            titleVideo: document.getElementById("title-video").value,
-            videoUrl: url,
+            titleVideo: title.value,
+            videoUrl: url.value,
           })
           .then(function (response) {
             console.log(response);
@@ -164,8 +124,8 @@
           .catch(function (error) {
             console.log(error);
           });
-          document.getElementById("title-video").value = ""
-          url = ""
+          title.value = ""
+          url.value = ""
 
       });
     </script>
