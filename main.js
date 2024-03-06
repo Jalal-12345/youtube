@@ -74,7 +74,11 @@ function Search(q) {
           </div>
         `;
       }
-    });
+    })
+    .catch(()=>{
+      alert("خلصت البحث")
+    })
+    
 }
 document.querySelector("#clicksearch").addEventListener("click", (e) => {
   e.preventDefault();
