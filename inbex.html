@@ -29,12 +29,12 @@
     <header>
       <div class="left-section">
         <i class="material-icons">menu</i>
-        <img src="images/youtube-logo.png" alt="" />
+        <img src="images/youtube-logo.png" alt=""/>
       </div>
       <div class="mid-section">
         <form>
-          <input type="text" placeholder="البحث" onkeyup="searchData(this.value)"/>
-          <button>
+          <input type="text" placeholder="البحث" id="searchData"/>
+          <button id="clicksearch">
             <i class="material-icons">search</i>
           </button>
         </form>
@@ -248,70 +248,5 @@
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script src="main.js"></script>
     <!-- <script  src="main.js"></script> -->
-    <script>
-          let container = document.querySelector(".videos_container")
-          let response = []
-  function getVideo(){ 
-    
-    container.innerHTML = ""
-         axios.get("https://api-youtube-zou4.onrender.com/videos").then(res => {
-        for (i=0 ; i < res.data.length; i++){
-          container.innerHTML += `
-        <div class="video">
-            <div class="tumbnail">
-                ${res.data[i].videoUrl}
-              <div class="video-detalis">  
-                <div class="creater-img">
-                  <img src="images/profile-pic.png" alt="" />
-                </div>
-                <div class="title">
-                  <a class="video-title" href="#"> ${res.data[i].titleVideo}</a>
-                  <a href="#" class="video-creater"> Islam </a>
-                  <span> 10M مشاهدة <span>قبل 51 دقيقة</span> </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        `
-        response.push(res.data[i]); 
-        }
-      
-      }
-    
-    
-      )}
-
-      getVideo();
-
-      function searchData(value){
-        container.innerHTML = ""
-        for(i=0; i< response.length; i++){
-
-          
-          if(response[i].titleVideo.includes(value)){
-            container.innerHTML += `
-        <div class="video">
-            <div class="tumbnail">
-                ${response[i].videoUrl}
-              <div class="video-detalis">  
-                <div class="creater-img">
-                  <img src="images/profile-pic.png" alt="" />
-                </div>
-                <div class="title">
-                  <a class="video-title" href="#"> ${response[i].titleVideo}</a>
-                  <a href="#" class="video-creater"> Islam </a>
-                  <span> 10M مشاهدة <span>قبل 51 دقيقة</span> </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        `
-          }
-
-
-         
-        }
-      }
-    </script>
   </body>
 </html>
