@@ -31,7 +31,7 @@ function getVideo() {
     });
 }
 
-// getVideo();
+ getVideo();
 
 // menu
 
