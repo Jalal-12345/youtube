@@ -31,7 +31,7 @@ function getVideo() {
     });
 }
 
-getVideo();
+// getVideo();
 
 // menu
 
@@ -75,14 +75,43 @@ function Search(q) {
         `;
       }
     })
-    .catch(()=>{
+    .catch(() => {
       alert("خلصت البحث")
     })
-    
+
 }
 document.querySelector("#clicksearch").addEventListener("click", (e) => {
   e.preventDefault();
   let search = document.querySelector("#searchData")
   Search(search.value);
-  
+  searchPost(search.value);
 });
+
+function data() {
+  const data = new Date;
+  const Hours = data.getHours();
+  const Minutes = data.getMinutes();
+  const Day = ["اللأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+  return `الساعة:${data.getHours()}:${data.getMinutes()} اليوم:${Day[data.getUTCDay()]}`;
+}
+
+
+
+
+// search post 
+function searchPost(value) {
+  fetch("https://api-youtube-zou4.onrender.com/SEARCH", {
+    method: "POST",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body:JSON.stringify({
+      q: value,
+      data: data(),
+    })
+  })
+    .then(res => console.log(res))
+}
+
+
